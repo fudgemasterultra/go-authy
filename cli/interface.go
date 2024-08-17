@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"fudgemasterultra/go-authy/orm"
 
 	"github.com/alexflint/go-arg"
 )
@@ -13,7 +14,8 @@ func Entry () {
 		fmt.Println("Create User")
 	}
 	if args.SetDBEnvPath != nil {
-		fmt.Println("Set DB Env Path")
+		var db = args.SetDBEnvPath
+		orm.IntialSetup(db.Host, db.User, db.Password, db.DBName, db.Port)
 	}
 	
 }
