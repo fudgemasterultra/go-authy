@@ -45,12 +45,14 @@ func IntialSetup(host string, user string, password string, dbName string, port 
 		panic("failed to connect database")
 	}
 	os.Setenv("GO_AUTHY_DB_URL", connectionString)
+
 	migrations(db)
 
 }
 
 func CreateUser(username string, password string) {
 	conString, setupFinished := os.LookupEnv("GO_AUTHY_DB_URL")
+	fmt.Println(conString)
 	if !setupFinished {
 		panic("Database not setup")
 	}
@@ -58,5 +60,6 @@ func CreateUser(username string, password string) {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	db.Create(&User{Username: username, Password: password})
+	hashedPassword := hashPassword(password)
+	db.Create(&User{Username: username, Password: hashedPassword})
 }

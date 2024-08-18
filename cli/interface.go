@@ -1,21 +1,19 @@
 package cli
 
 import (
-	"fmt"
 	"fudgemasterultra/go-authy/orm"
 
 	"github.com/alexflint/go-arg"
 )
 
-
-func Entry () {
+func Entry() {
 	arg.MustParse(&args)
 	if args.CreateUser != nil {
-		fmt.Println("Create User")
+		orm.CreateUser(args.CreateUser.Username, args.CreateUser.Password)
 	}
 	if args.SetDBEnvPath != nil {
 		var db = args.SetDBEnvPath
 		orm.IntialSetup(db.Host, db.User, db.Password, db.DBName, db.Port)
 	}
-	
+
 }

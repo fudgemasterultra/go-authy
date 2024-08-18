@@ -28,6 +28,7 @@ type User struct {
 	gorm.Model
 	Username string
 	Password string
+	Email    string
 	Salt     string
 	Sessions []SessionToken
 }
@@ -38,6 +39,7 @@ type SessionToken struct {
 	RefreshToken          string
 	RefreshTokenExpiresAt time.Time
 	RefreshUsed           bool
-	CreatedAt             time.Time
 	ExpiresAt             time.Time
+	UserID                int
+	User                  User
 }
