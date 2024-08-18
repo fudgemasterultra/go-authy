@@ -13,7 +13,11 @@ type Response[T any] struct {
 }
 
 type ConnectedDb struct {
-	Url string
+	Host     string
+	User     string
+	Password string
+	DBName   string
+	Port     string
 }
 
 type ConnectionData struct {
