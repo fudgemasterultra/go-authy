@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 
+	"gopkg.in/yaml.v2"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -35,6 +36,25 @@ func migrations(db *gorm.DB) {
 
 func createConnectionString(host string, user string, password string, dbName string, port string) string {
 	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, user, password, dbName, port)
+}
+
+func writeYML(yml []byte) {
+	var file *os.File
+	var err error
+	file, err = os.Create("config.yml")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	file.Write(yml)
+}
+
+func createConConfig(connectionInfo ConnectionData) {
+	byteYml, err := yaml.Marshal(connectionInfo)
+	if err != nil {
+		panic(err)
+	}
+	writeYML(byteYml)
 }
 
 func IntialSetup(host string, user string, password string, dbName string, port string) {
