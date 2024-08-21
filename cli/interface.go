@@ -9,7 +9,9 @@ import (
 func Entry() {
 	arg.MustParse(&args)
 	if args.CreateUser != nil {
-		orm.CreateUser(args.CreateUser.Username, args.CreateUser.Password)
+		var cu CreateUser
+		cu = *args.CreateUser
+		orm.CreateUser(cu.Email, cu.Username, cu.Password)
 	}
 	if args.SetDBEnvPath != nil {
 		var db = args.SetDBEnvPath

@@ -31,7 +31,7 @@ type ConnectionData struct {
 type User struct {
 	gorm.Model
 	Username string
-	Password string
+	Password []byte
 	Email    string
 	Salt     string
 	Sessions []SessionToken
